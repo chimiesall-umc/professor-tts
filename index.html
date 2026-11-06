@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎙️ مُولِّد صوت الأستاذ | TTS du Professeur — نسخة الويب</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="avatar">🎓</div>
+  <div class="titles">
+    <h1>مُولِّد صوت «الأستاذ» <span class="fr">— Online</span></h1>
+    <p class="sub">إصدار سحابي يعمل بالكامل في متصفحك · التوليد والمعالجة والتسميل كلها محلية في جهازك · توقفات مخصّصة لوقت القراءة على الشاشة</p>
+  </div>
+</header>
+
+<main>
+  <div class="hint" style="margin:0 auto 18px; max-width:960px;">
+    🔒 <b>الخصوصية:</b> هذا الموقع لا يملك خادمًا — كل عمليات توليد الصوت تحدث في متصفحك مباشرة.
+    مفتاح Gemini (إن استخدمته) يُحفظ في متصفحك فقط ويُرسَل حصريًا إلى Google.
+    محرك Microsoft Edge يعمل بلا أي مفتاح.
+    <span class="fr">Aucun serveur : tout est rendu dans votre navigateur. La clé Gemini reste chez vous.</span>
+  </div>
+
+  <section class="editor card">
+    <div class="row between">
+      <h2>📝 النص المراد قراءته <span class="fr">Texte à lire</span></h2>
+      <div class="row gap">
+        <button id="btnDemo" class="ghost" title="demo">📂 نموذج</button>
+        <button id="btnImport" class="ghost">📄 استيراد <span class="fr">.docx / .txt</span></button>
+      </div>
+    </div>
+    <input type="file" id="fileInput" accept=".docx,.txt,.md" hidden>
+    <textarea id="script" dir="auto" spellcheck="false"
+      placeholder="اكتب/الصق النص هنا (عربي مُشكَّل + فرنسي)...&#10;...   = ثواني صمت 3 (قراءة الشاشة)&#10;.....  = 5 ثوانٍ صمت&#10;سطر فارغ = وقفة فقرة"></textarea>
+
+    <div class="legend">
+      <span class="chip">...</span> صمت 3 ثوانٍ ·
+      <span class="chip">.....</span> صمت 5 ثوانٍ ·
+      <span class="chip">سطر فارغ</span> وقفة فقرة ·
+      <span class="chip">نص مختلط ع/فر</span> تبديل الصوت آليًا
+    </div>
+
+    <div class="sliders">
+      <label>سرعة القراءة <span class="fr">Vitesse de lecture (−30% … +25%)</span>
+        <input type="range" id="rate" min="-30" max="25" value="0" step="5" data-label="rateVal">
+        <output id="rateVal">افتراضية (−12%)</output>
+      </label>
+      <label>عمق الصوت <span class="fr">Profondeur (Hz)</span>
+        <input type="range" id="pitch" min="0" max="18" value="0" step="2" data-label="pitchVal">
+        <output id="pitchVal">افتراضية (−8Hz)</output>
+      </label>
+    </div>
+
+    <div class="engines">
+      <label>🧠 محرك التوليد <span class="fr">Moteur TTS</span>
+        <select id="engineSel">
+          <option value="edge">Microsoft Edge — مجاني، سريع، بلا مفتاح (تجريبي في الويب)</option>
+          <option value="gemini">✨ Google Gemini TTS — أعلى جودة (مفتاح مجاني — مستحسن)</option>
+        </select>
+      </label>
+      <button id="btnGetKey" class="ghost" title="aistudio.google.com/apikey">🔑 كيف أحصل على مفتاح مجاني؟</button>
+    </div>
+
+    <div id="geminiBox" hidden>
+      <div class="gemgrid">
+        <label>مفتاح Gemini API <span class="fr">Clé AI Studio (gratuit)</span>
+          <input type="password" id="geminiKey" placeholder="AIza…" autocomplete="off">
+        </label>
+        <label>القارئ <span class="fr">Voix</span>
+          <select id="geminiVoice" dir="auto"></select>
+        </label>
+        <label>النموذج <span class="fr">Modèle</span>
+          <select id="geminiModel"></select>
+        </label>
+      </div>
+      <div class="hint">الحصة المجانية محدودة (~3 طلبات/دقيقة، ~10-15 طلب/يوم لكل نموذج): كل مقطع يُخزَّن في ذاكرة هذه الجلسة، فمُحاولة الإعادة لا تستهلك الحصة. القراءة تُنفَّذ عبر طلبات كبيرة (~1200 حرف). إن نفدت الحصة جرّب النموذج Lite أو أكمل غدًا.</div>
+    </div>
+
+    <div class="reciters" id="edgeControls">
+      <label class="chk single-chk">
+        <input type="checkbox" id="singleReader" checked>
+        🔁 قارئ واحد ثنائي اللغة <span class="fr">voix unique bilingue (recommandé)</span>
+      </label>
+      <label id="singleSelLabel">🟪 القارئ الموحّد <span class="fr">Voix multilingue</span>
+        <select id="voice_single" dir="auto"></select>
+      </label>
+      <label id="arSelLabel">🟦 القارئ العربي <span class="fr">Voix arabe</span>
+        <select id="voice_ar" dir="auto"></select>
+      </label>
+      <label id="frSelLabel">🟧 القارئ الفرنسي <span class="fr">Voix française</span>
+        <select id="voice_fr" dir="auto"></select>
+      </label>
+    </div>
+
+    <div class="row gap">
+      <button id="btnRender" class="primary big">🎙️ توليد الصوت <span class="fr">Générer</span></button>
+    </div>
+    <div id="progressWrap" hidden style="margin-top:10px">
+      <div style="height:8px;background:#e2e8ef;border-radius:6px;overflow:hidden">
+        <div id="progressBar" style="height:100%;width:0%;background:#5b6fd6;transition:width .2s"></div>
+      </div>
+      <small id="progressText" class="fr"></small>
+    </div>
+    <div id="status" class="status" hidden></div>
+  </section>
+
+  <section id="result" class="card" hidden>
+    <h2>🔊 النتيجة <span class="fr">Résultat</span></h2>
+    <div class="player"><audio id="player" controls preload="none"></audio></div>
+    <div id="meta" class="meta"></div>
+
+    <div class="downloads">
+      <a id="dlWav" class="btn dl" download="lesson_48k.wav">⬇️ تنزيل WAV (48 kHz استوديو)</a>
+      <a id="dlMp3" class="btn dl" download="lesson_320k.mp3">⬇️ تنزيل MP3 (320 kbps)</a>
+      <a id="dlJson" class="btn dl" download="sync_markers.json">⬇️ تزامن المسوقات (sync_markers.json)</a>
+    </div>
+
+    <details id="markersWrap">
+      <summary>📋 خطّ الوقت لمزامنة العرض <span class="fr">Repères de synchronisation</span></summary>
+      <div id="markers" class="markers"></div>
+    </details>
+  </section>
+</main>
+
+<footer>
+  <small>مشروع بروفيسور TTS — النسخة السحابية (GitHub Pages) · كل العمل داخل متصفحك ·
+  الكود المصدري في المستودع · محركات: Microsoft Edge TTS + Google Gemini TTS ·
+  <span class="fr">Version statique : tout le rendu se fait dans le navigateur.</span></small>
+</footer>
+
+<script src="js/lame.min.js"></script>
+<script src="js/mammoth.browser.min.js"></script>
+<script src="js/parser.js"></script>
+<script src="js/edge-tts.js"></script>
+<script src="js/gemini-tts.js"></script>
+<script src="js/audio.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

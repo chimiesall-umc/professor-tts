@@ -1,0 +1,285 @@
+/* =====================================================================
+   مُولِّد صوت الأستاذ — Academic theme (Calibri, full RTL)
+   Palette: deep navy canvas, parchment cards, gold accents
+   ===================================================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:      #14203a;
+  --navy-2:    #1e2d4f;
+  --navy-3:    #2a3d69;
+  --gold:      #d9a441;
+  --gold-dark: #b5762a;
+  --paper:     #faf7ef;
+  --paper-2:   #fffdf7;
+  --ink:       #2b2b2b;
+  --muted:     #6b6353;
+  --ok:        #3f9d6e;
+  --err:       #c0504d;
+  --radius: 16px;
+}
+
+html { scrollbar-color: var(--gold-dark) var(--navy); }
+
+body {
+  font-family: Calibri, Carlito, "Segoe UI", Tahoma, sans-serif;
+  font-size: 17px;
+  direction: rtl;
+  text-align: right;
+  color: var(--ink);
+  min-height: 100vh;
+  background:
+    radial-gradient(1100px 460px at 50% -8%, #2c4270 0%, transparent 62%),
+    linear-gradient(180deg, var(--navy) 0%, #0f1830 100%);
+  background-attachment: fixed;
+  display: flex; flex-direction: column;
+}
+
+/* Latin fragments inside RTL text stay isolated & readable */
+.fr { unicode-bidi: isolate; }
+
+::selection { background: var(--gold); color: var(--navy); }
+
+/* ------------------------------------------------ header ------------- */
+.masthead {
+  display: flex; align-items: center; gap: 20px;
+  padding: 30px 8vw 20px;
+  color: var(--paper);
+}
+.avatar {
+  width: 76px; height: 76px; border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, #ecc57a 0%, var(--gold-dark) 78%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.45), 0 0 0 3px rgba(217,164,65,.35);
+  flex: none;
+}
+.titles h1 {
+  font-size: 1.85rem; font-weight: 700; letter-spacing: .3px;
+  text-shadow: 0 2px 10px rgba(0,0,0,.4);
+  border-bottom: 3px solid var(--gold);
+  display: inline-block; padding-bottom: 6px;
+}
+.titles .sub { opacity: .85; font-size: 1.02rem; margin-top: 10px; }
+
+main { padding: 6px 8vw 34px; display: grid; gap: 24px; }
+
+/* ------------------------------------------------ cards -------------- */
+.card {
+  background: linear-gradient(180deg, var(--paper) 0%, #f4efdf 100%);
+  border-radius: var(--radius);
+  border-top: 4px solid var(--gold);
+  padding: 24px 28px 26px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.4);
+}
+
+h2 { color: var(--navy-2); margin-bottom: 14px; font-size: 1.28rem; }
+h2 .fr, .fr { opacity: .55; font-size: .83em; font-weight: 400; }
+
+/* ------------------------------------------------ editor ------------- */
+textarea {
+  width: 100%; min-height: 240px;
+  border: 2px solid #ddd5c1; border-radius: 12px;
+  padding: 16px 18px;
+  font-family: Calibri, Carlito, "Segoe UI", Tahoma, sans-serif;
+  font-size: 1.12rem; line-height: 2;
+  resize: vertical; background: var(--paper-2); color: var(--ink);
+}
+textarea:focus {
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(217,164,65,.18);
+}
+
+.legend {
+  margin-top: 12px; font-size: .95rem; color: var(--muted);
+  background: #f0ead9; border-radius: 10px; padding: 9px 14px;
+}
+.legend .chip {
+  display: inline-block; padding: 1px 9px; margin: 0 2px;
+  background: var(--paper-2); color: #7a5b1c; border-radius: 999px;
+  font-family: Consolas, Calibri, monospace; font-weight: 700;
+  border: 1px solid #e0d5b4; unicode-bidi: isolate;
+}
+
+/* ------------------------------------------------ controls ----------- */
+.sliders, .reciters, .engines {
+  margin-top: 18px; padding-top: 16px;
+  border-top: 1px dashed #d8d2c2;
+}
+.sliders, .gemgrid {
+  display: flex; flex-wrap: wrap; gap: 24px;
+}
+.sliders label {
+  display: flex; flex-direction: column; gap: 5px; min-width: 250px;
+  font-size: .98rem; color: var(--navy-2);
+}
+.sliders output { font-size: .85rem; opacity: .75; }
+input[type=range] { accent-color: var(--gold); cursor: pointer; }
+
+.chk { display: flex !important; flex-direction: row !important;
+  align-items: center; gap: 9px !important; min-width: 0 !important;
+  font-size: .98rem; }
+.chk input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--gold-dark); }
+
+input[type=checkbox], select, input[type=password], textarea {
+  font-family: Calibri, Carlito, "Segoe UI", Tahoma, sans-serif;
+}
+select, input[type=password] {
+  padding: 9px 12px; border: 2px solid #ddd5c1; border-radius: 10px;
+  background: var(--paper-2); color: var(--ink); font-size: .98rem;
+}
+select:focus, input:focus { outline: none; border-color: var(--gold); }
+
+.reciters label {
+  display: flex; flex-direction: column; gap: 5px; min-width: 260px;
+  font-size: .98rem; color: var(--navy-2);
+}
+.reciters { display: flex; flex-wrap: wrap; gap: 24px; }
+.reciters .single-chk { justify-content: flex-start; }
+
+.engines {
+  display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+}
+.engines label {
+  display: flex; flex-direction: column; gap: 5px;
+  font-size: .98rem; color: var(--navy-2); min-width: 340px;
+}
+
+/* ------------------------------------------------ gemini panel ------- */
+#geminiBox {
+  margin-top: 18px;
+  background: linear-gradient(180deg, #f5f2fc 0%, #ede9f9 100%);
+  border: 2px solid #d8d0ef; border-radius: 12px;
+  padding: 16px 18px;
+}
+.gemgrid label {
+  display: flex; flex-direction: column; gap: 5px; min-width: 210px; flex: 1;
+  font-size: .98rem; color: var(--navy-2);
+}
+.stylewrap {
+  display: flex; flex-direction: column; gap: 5px; margin-top: 12px;
+  font-size: .98rem; color: var(--navy-2);
+}
+.stylewrap textarea {
+  width: 100%; resize: vertical; font-size: .87rem; line-height: 1.7;
+  font-family: Consolas, Calibri, monospace; min-height: 84px;
+}
+.hint {
+  margin-top: 12px; font-size: .92rem; color: var(--muted);
+  background: #f0ead9; border-radius: 8px; padding: 9px 12px;
+}
+
+/* ------------------------------------------------ buttons ------------ */
+.row { display: flex; align-items: center; }
+.row.between { justify-content: space-between; }
+.row.gap { gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+.row.gap.tight { margin-top: 0; gap: 8px; }
+
+button, .btn {
+  border: none; border-radius: 11px; cursor: pointer;
+  font-family: Calibri, Carlito, "Segoe UI", Tahoma, sans-serif;
+  font-size: 1.02rem;
+  transition: transform .08s ease, box-shadow .15s ease, filter .15s ease;
+}
+button:active { transform: translateY(1px); }
+
+.primary {
+  background: linear-gradient(160deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: #241a06; font-weight: 700; padding: 13px 30px;
+  box-shadow: 0 7px 18px rgba(181,118,42,.4);
+}
+.primary:hover { filter: brightness(1.06); box-shadow: 0 9px 26px rgba(181,118,42,.55); }
+.primary:disabled { opacity: .55; cursor: wait; filter: none; }
+.primary .fr { opacity: .75; }
+
+.ghost {
+  background: transparent; color: var(--navy-2);
+  border: 2px solid #cfc6ae; padding: 10px 18px;
+}
+.ghost:hover { border-color: var(--gold); background: rgba(217,164,65,.08); }
+.ghost .fr { opacity: .6; }
+.big { font-size: 1.12rem; padding: 14px 34px; }
+
+/* ------------------------------------------------ status ------------- */
+.status {
+  margin-top: 16px; padding: 12px 16px; border-radius: 10px;
+  font-size: .98rem; background: #eef3ee; border: 1px solid transparent;
+}
+.status.busy { background: #fdf4e3; color: #7a5b1c; border-color: #ecd9a0; }
+.status.warn { background: #fdf4e3; color: #7a5b1c; border-color: #ecd9a0; }
+.status.ok   { background: #e8f4ee; color: var(--ok); border-color: #bfe0cf; }
+.status.err  { background: #f7e7e6; color: var(--err); border-color: #e5c3c1;
+  white-space: pre-wrap; }
+.status code { unicode-bidi: isolate; }
+
+.spinner {
+  display: inline-block; width: 15px; height: 15px;
+  border: 2px solid rgba(0,0,0,.15); border-top-color: var(--gold-dark);
+  border-radius: 50%; animation: spin .8s linear infinite;
+  vertical-align: -3px; margin-inline-end: 7px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ------------------------------------------------ result ------------- */
+.player audio {
+  width: 100%; margin: 8px 0 4px; accent-color: var(--gold-dark);
+  border-radius: 12px;
+}
+.meta { font-size: .95rem; opacity: .8; margin-bottom: 12px; }
+
+.downloads { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.dl {
+  background: linear-gradient(160deg, var(--navy-2) 0%, var(--navy-3) 100%);
+  color: var(--paper); padding: 11px 20px; text-decoration: none;
+  pointer-events: none; opacity: .45; font-size: .98rem;
+}
+.dl.active { pointer-events: auto; opacity: 1;
+  box-shadow: 0 5px 14px rgba(20,32,58,.35); }
+.dl:hover { filter: brightness(1.15); }
+.dl .fr { opacity: .75; }
+
+/* ------------------------------------------------ markers ------------ */
+details { margin-top: 18px; }
+summary {
+  cursor: pointer; color: var(--navy-2); font-weight: 700;
+  font-size: 1.05rem; padding: 6px 0;
+}
+summary:hover { color: var(--gold-dark); }
+.markers { margin-top: 10px; display: grid; gap: 5px; }
+.markers .m {
+  display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap;
+  font-size: .95rem; padding: 7px 12px; border-radius: 9px;
+  background: var(--paper-2); border: 1px solid #e8e1cf;
+}
+.markers .t {
+  font-family: Consolas, Calibri, monospace; color: #6c6350;
+  direction: ltr; unicode-bidi: isolate; white-space: nowrap;
+  min-width: 128px;
+}
+.markers .m.speech-ar { border-inline-start: 4px solid #3c6e9f; }
+.markers .m.speech-fr { border-inline-start: 4px solid #b5762a; }
+.markers .m.speech-bi { border-inline-start: 4px solid #6d5fb0;
+  background: #f6f3fb; }
+.markers .m.pause { background: #f4efe2; border-style: dashed; }
+.markers .lb { font-weight: 700; unicode-bidi: isolate; }
+
+/* ------------------------------------------------ footer ------------- */
+footer {
+  text-align: center; color: rgba(247,244,236,.55);
+  padding: 16px 0 24px; font-size: .92rem;
+}
+
+/* ------------------------------------------------ responsive --------- */
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .masthead, .card, main { padding-inline: 4vw; }
+  .masthead { gap: 14px; }
+  .avatar { width: 60px; height: 60px; font-size: 32px; }
+  .titles h1 { font-size: 1.4rem; }
+  .titles .sub { font-size: .9rem; }
+  .gemgrid, .sliders, .reciters { gap: 14px; }
+  .sliders label, .reciters label, .engines label { min-width: 100%; }
+  .downloads { gap: 8px; }
+  .dl { padding: 10px 14px; font-size: .9rem; }
+}

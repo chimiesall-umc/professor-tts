@@ -1,0 +1,14 @@
+# Demo script — bilingual Arabic/French lesson with professor persona
+# "..."  -> 3 second pause | "....." -> 5 second pause | blank line = paragraph
+
+السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ، أَهْلًا وَسَهْلًا بِكُمْ فِي هٰذِهِ الجِلْسَةِ الثَّانِيَةِ.
+
+Aujourd'hui, chers étudiants, nous commençons un nouveau chapitre très important.
+
+دَعُونِي مِنَ البِدَايَةِ أَنْ أُثِيرَ فِيكُمُ السُّؤَالَ التَّالِي: مَا مَعْنَى «الدَّالَّةُ الأُسِّيَّةُ»؟
+
+Bon... regardez bien cette définition au tableau, et lisez-la en silence.....
+ثُمَّ اِقْرَؤُوا مَعِي التَّعْرِيفَ بِصَوْتٍ عَالٍ وَنُطْقٍ جَيِّدٍ.
+
+Observez maintenant ce graphique.....
+وَشَاهِدُوا تَقْدِيرَ مَيْزَانِ الشَّكْلِ بِعَيْنِ الرِّيَاضِيِّ فَلَايَفُوتُكُمْ شَيْءٌ.
